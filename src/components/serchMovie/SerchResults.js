@@ -6,6 +6,7 @@ const SerchResults = ({keySerch}) => {
   const movie = keySerch;
   const navigation = useNavigation();
   const {title} = movie;
+  console.log(movie);
 
   return (
     <TouchableOpacity

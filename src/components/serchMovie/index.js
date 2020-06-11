@@ -9,14 +9,10 @@ import axios from 'axios';
 import SerchResults from './SerchResults';
 
 const SerchMovie = () => {
-  //Llamado de la api
-  useEffect(() => {
-    serchApi();
-  }, [serch]);
-
   //state
   const [serch, setSerch] = useState('');
   const [keySerchs, setKeySerchs] = useState([]);
+  console.log(keySerchs);
 
   //Funciones
   const serchApi = async () => {
@@ -24,12 +20,16 @@ const SerchMovie = () => {
     try {
       const urlSerch = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${serch}&page=1&include_adult=false`;
       const respuesta = await axios.get(urlSerch);
+      console.log(respuesta);
       setKeySerchs(respuesta.data.results);
     } catch (error) {
       console.log(error);
     }
   };
-
+  //Llamado de la api
+  useEffect(() => {
+    serchApi();
+  }, [serch]);
   return (
     <>
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

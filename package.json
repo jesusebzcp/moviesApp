@@ -18,7 +18,6 @@
     "react": "16.11.0",
     "react-devtools": "^4.7.0",
     "react-native": "0.62.2",
-    "react-native-dynamic-search-bar": "^1.2.0",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-reanimated": "^1.9.0",
     "react-native-safe-area-context": "^3.0.2",

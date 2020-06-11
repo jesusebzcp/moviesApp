@@ -6,6 +6,8 @@ import {
   AGREGAR_MOVIES_DESCARGAR_EXITO_TOP,
   AGREGAR_MOVIES_TOP,
 } from '../types';
+
+//State principal
 const initialState = {
   recomendados: [],
   topRated: [],

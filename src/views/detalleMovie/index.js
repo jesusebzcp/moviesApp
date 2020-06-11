@@ -4,7 +4,17 @@ import {Grid, Text, Button, Col, Row, Icon} from 'native-base';
 import {ScrollView} from 'react-native-gesture-handler';
 
 const DetalleMovie = props => {
+  //State
+  const [startLike1, setstartLike1] = useState('#fcd401');
+  const [startLike2, setstartLike2] = useState('#fcd401');
+  const [startLike3, setstartLike3] = useState('#fcd401');
+  const [startLike4, setstartLike4] = useState('#fcd401');
+  const [startLike5, setstartLike5] = useState('#fcd401');
+
+  //Parametros de las peliculas
   const movie = props.route.params;
+
+  //Destructuraciond e la data
   const {
     title,
     overview,
@@ -12,20 +22,20 @@ const DetalleMovie = props => {
     vote_average,
     popularity,
     release_date,
+    poster_path,
   } = movie;
-  console.log(movie);
+
+  //Tranformar data en entero
+  const rango = parseInt(vote_average);
+
+  //Base para la carga de imagenes
   const baseUrlImg = 'https://image.tmdb.org/t/p/w500/';
 
-  const [startLike1, setstartLike1] = useState('#fcd401');
-  const [startLike2, setstartLike2] = useState('#fcd401');
-  const [startLike3, setstartLike3] = useState('#fcd401');
-  const [startLike4, setstartLike4] = useState('#fcd401');
-  const [startLike5, setstartLike5] = useState('#fcd401');
-
-  const rango = parseInt(vote_average);
   useEffect(() => {
     calificaciones();
   }, []);
+
+  //Funciones
   const calificaciones = () => {
     if (rango <= 2) {
       setstartLike5('#545538');
@@ -147,10 +157,9 @@ const DetalleMovie = props => {
 
             <View style={{marginVertical: 10}}>
               <Grid>
-                <Row />
                 <Col>
                   <Text style={{marginTop: 10, color: 'white'}}>
-                    Echo{' '}
+                    Popularity{' '}
                     <Text style={{color: 'gray', marginLeft: 5}}>
                       {' '}
                       {popularity}
@@ -158,12 +167,18 @@ const DetalleMovie = props => {
                   </Text>
 
                   <Text style={{marginTop: 10, color: 'white'}}>
-                    fecha
+                    Release date
                     <Text style={{color: 'gray', marginLeft: 5}}>
                       {' '}
                       {release_date}
                     </Text>
                   </Text>
+                </Col>
+                <Col>
+                  <Image
+                    style={{width: 100, height: 100, borderRadius: 50}}
+                    source={{uri: `${baseUrlImg}${poster_path}`}}
+                  />
                 </Col>
               </Grid>
             </View>

@@ -1,15 +1,19 @@
 import React, {useEffect, Fragment} from 'react';
-import {Text, View, Image, ScrollView, ActivityIndicator} from 'react-native';
+import {Text, View, ScrollView, ActivityIndicator} from 'react-native';
 import {Grid, Col} from 'native-base';
 
 //Redux
 import {useSelector, useDispatch} from 'react-redux';
 import {getMovies} from '../../redux/actions/moviesAction';
+
+//Component
 import Recommended from './recommended';
 
 const RecommendedMovies = () => {
-  //Hooks dispach
+  //Hooks
   const dispatch = useDispatch();
+  //Obtener state
+  const movies = useSelector(state => state.movies.recomendados);
 
   //Cargamos las movies con un efecto al cargar la pantalla
   useEffect(() => {
@@ -18,9 +22,6 @@ const RecommendedMovies = () => {
 
   //consultar api
   const cargarMovies = () => dispatch(getMovies());
-
-  //Obetenr state
-  const movies = useSelector(state => state.movies.recomendados);
 
   return (
     <View style={{flrex: 1, marginTop: 30, marginLeft: 30}}>
@@ -44,13 +45,29 @@ const RecommendedMovies = () => {
       </Grid>
 
       <ScrollView horizontal>
-        {movies.map(movie => {
-          return (
-            <Fragment key={movie.id}>
-              <Recommended movie={movie} />
-            </Fragment>
-          );
-        })}
+        {movies.length === 0 ? (
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <ActivityIndicator
+              style={{marginVertical: 10}}
+              size="large"
+              color="white"
+            />
+            <Text style={{color: 'white'}}>Loading movies.....</Text>
+          </View>
+        ) : (
+          movies.map(movie => {
+            return (
+              <Fragment key={movie.id}>
+                <Recommended movie={movie} />
+              </Fragment>
+            );
+          })
+        )}
       </ScrollView>
     </View>
   );

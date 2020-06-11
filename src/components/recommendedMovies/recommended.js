@@ -4,21 +4,34 @@ import {Icon, Grid, Row} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 
 const Recommended = ({movie}) => {
+  //Hooks
   const navigation = useNavigation();
+
+  useEffect(() => {
+    calificaciones();
+  }, []);
+
+  //State
   const [startLike1, setstartLike1] = useState('#fcd401');
   const [startLike2, setstartLike2] = useState('#fcd401');
   const [startLike3, setstartLike3] = useState('#fcd401');
   const [startLike4, setstartLike4] = useState('#fcd401');
   const [startLike5, setstartLike5] = useState('#fcd401');
+
+  //Data
   const {title, poster_path, vote_average} = movie;
 
-  const rango = parseInt(vote_average);
-  useEffect(() => {
-    calificaciones();
-  }, []);
+  //URL base de la imagenes
+  const baseUrlImg = 'https://image.tmdb.org/t/p/w200/';
 
-  //Segun el resuktado de las califiacaciones
+  //Convertimos el dato en un entero para calcular el puntaje
+  const rango = parseInt(vote_average);
+
+  //Funciones
   const calificaciones = () => {
+    //Segun la Data de la Api es el resultado
+    //Estas condiciones representa una estrella selecionada
+
     if (rango <= 2) {
       setstartLike5('#545538');
       setstartLike4('#545538');
@@ -52,8 +65,6 @@ const Recommended = ({movie}) => {
     }
   };
 
-  //URL base de la imagenes
-  const baseUrlImg = 'https://image.tmdb.org/t/p/w200/';
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('DetalleMovie', movie)}>

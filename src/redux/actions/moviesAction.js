@@ -47,6 +47,7 @@ const descargaMovieError = () => ({
 
 //Actions Top rated
 
+//Get movies //recomendados
 export function getMoviesTop() {
   return async dispatch => {
     dispatch(donwloadMovieTop());
